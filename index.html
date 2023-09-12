@@ -173,7 +173,7 @@ abstract.onAdd = function (map) {
     this._div = L.DomUtil.create('div', 'leaflet-control abstract');
     this._div.id = 'abstract';
     this._div.setAttribute("onmouseenter", "abstract.show()");
-    this._div.setAttribute("onmouseleave", "abstract.hide()");
+    
     // Remove the line that hides the element initially
     return this._div;
 };
