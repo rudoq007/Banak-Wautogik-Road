@@ -71,6 +71,8 @@
             secondaryLengthUnit: 'kilometers',
             primaryAreaUnit: 'sqmeters',
             secondaryAreaUnit: 'hectares'
+	showDistances: true, // Display distances as temporary markers
+    	showBearings: true   // Display bearings as temporary markers
         });
         measureControl.addTo(map);
         document.getElementsByClassName('leaflet-control-measure-toggle')[0]
@@ -173,8 +175,6 @@ abstract.onAdd = function (map) {
     this._div = L.DomUtil.create('div', 'leaflet-control abstract');
     this._div.id = 'abstract';
     this._div.setAttribute("onmouseenter", "abstract.show()");
-    
-    // Remove the line that hides the element initially
     return this._div;
 };
 abstract.hide = function () {
