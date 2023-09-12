@@ -168,7 +168,7 @@
                 this._div.innerHTML = '<h2>Banak Wautogik Road Photo Update 14th August 2023</h2>';
             };
             title.addTo(map);
-            var abstract = new L.Control({'position':'topright'});
+           var abstract = new L.Control({'position':'topleft'});
 abstract.onAdd = function (map) {
     this._div = L.DomUtil.create('div', 'leaflet-control abstract');
     this._div.id = 'abstract';
@@ -188,6 +188,7 @@ abstract.show = function () {
     this._div.innerHTML = 'The main part of the work of this contract is to rehabilitate existing roads...'; // Content of the "abstract"
 };
 abstract.addTo(map);
+
 
         var baseMaps = {};
         L.control.layers(baseMaps,{'<img src="legend/Banak_wautogik_14082023_1.png" /> Banak_wautogik_14082023': layer_Banak_wautogik_14082023_1,"Esri Topo World": layer_EsriTopoWorld_0,},{collapsed:false}).addTo(map);
