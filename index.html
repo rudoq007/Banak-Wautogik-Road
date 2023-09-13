@@ -19,25 +19,23 @@
         }
     </style>
     <style>
-	/* Media query for mobile screens */
-@media screen and (max-width: 768px) {
-    .title-desktop {
-        display: none; /* Hide the title on mobile screens */
-    }
-    
-   /* Adjust the styles for the abstract on mobile screens */
-.leaflet-control.abstract {
-    max-width: 100%; /* Set the maximum width to the screen width */
-    max-height: 350px; /* Set a maximum height for the abstract */
-    overflow-y: auto; /* Enable vertical scrolling for overflow content */
-}
+        /* Media query for mobile screens */
+        @media screen and (max-width: 768px) {
+            .title-desktop {
+                display: none; /* Hide the title on mobile screens */
+            }
 
-/* Optional: Add padding for better visual appearance */
-.leaflet-control.abstract {
-    padding: 100px;
-}
-
-}
+            /* Adjust the styles for the abstract on mobile screens */
+            .leaflet-control.abstract {
+                max-width: 100%; /* Set the maximum width to the screen width */
+                max-height: 350px; /* Set a maximum height for the abstract */
+                overflow-y: auto; /* Enable vertical scrolling for overflow content */
+                /* Optional: Add padding for better visual appearance */
+                padding: 100px;
+            }
+        }
+    </style>
+    <style>
         html, body, #map {
             width: 100%;
             height: 100%;
@@ -61,69 +59,76 @@
     <!-- Page title element -->
     <div id="title"></div>
     <div id="map"></div>
-        </div>
-        <script src="js/qgis2web_expressions.js"></script>
-        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
-        <script src="js/leaflet-svg-shape-markers.min.js"></script>
-        <script src="js/leaflet.rotatedMarker.js"></script>
-        <script src="js/leaflet.pattern.js"></script>
-        <script src="js/leaflet-hash.js"></script>
-        <script src="js/Autolinker.min.js"></script>
-        <script src="js/rbush.min.js"></script>
-        <script src="js/labelgun.min.js"></script>
-        <script src="js/labels.js"></script>
-        <script src="js/leaflet-measure.js"></script>
-        <script src="data/Banak_wautogik_14082023_1.js"></script>
-        <script>
+    <script src="js/qgis2web_expressions.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/L.Control.Locate.min.js"></script>
+    <script src="js/leaflet-svg-shape-markers.min.js"></script>
+    <script src="js/leaflet.rotatedMarker.js"></script>
+    <script src="js/leaflet.pattern.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <script src="js/rbush.min.js"></script>
+    <script src="js/labelgun.min.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="js/leaflet-measure.js"></script>
+    <script src="data/Banak_wautogik_14082023_1.js"></script>
+    <script>
         var highlightLayer;
+
         function highlightFeature(e) {
             highlightLayer = e.target;
 
             if (e.target.feature.geometry.type === 'LineString') {
-              highlightLayer.setStyle({
-                color: '#ADD8E6',
-              });
+                highlightLayer.setStyle({
+                    color: '#ADD8E6',
+                });
             } else {
-              highlightLayer.setStyle({
-                fillColor: '#ADD8E6',
-                fillOpacity: 1
-              });
+                highlightLayer.setStyle({
+                    fillColor: '#ADD8E6',
+                    fillOpacity: 1
+                });
             }
             highlightLayer.openPopup();
         }
+
         var map = L.map('map', {
-            zoomControl:true, maxZoom:28, minZoom:1
-        })
-        
-        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
-        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
-       var measureControl = new L.Control.Measure({
-    position: 'topleft',
-    primaryLengthUnit: 'meters',
-    secondaryLengthUnit: 'kilometers',
-    primaryAreaUnit: 'sqmeters',
-    secondaryAreaUnit: 'hectares',
-    showDistances: true,  
-    showBearings: true,  
-    color: '#ADD8E6'
-});
-measureControl.addTo(map);
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1
+        });
 
+        var autolinker = new Autolinker({ truncate: { length: 30, location: 'smart' } });
+        L.control.locate({ locateOptions: { maxZoom: 19 } }).addTo(map);
 
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares',
+            showDistances: true,
+            showBearings: true,
+            color: '#ADD8E6'
+        });
+        measureControl.addTo(map);
 
         document.getElementsByClassName('leaflet-control-measure-toggle')[0]
-        .innerHTML = '';
+            .innerHTML = '';
         document.getElementsByClassName('leaflet-control-measure-toggle')[0]
-        .className += ' fas fa-ruler';
+            .className += ' fas fa-ruler';
+
         var bounds_group = new L.featureGroup([]);
+
         function setBounds() {
             if (bounds_group.getLayers().length) {
                 map.fitBounds(bounds_group.getBounds());
             }
             map.setMaxBounds(map.getBounds());
         }
+
         map.createPane('pane_EsriTopoWorld_0');
         map.getPane('pane_EsriTopoWorld_0').style.zIndex = 100;
+
         var layer_EsriTopoWorld_0 = L.tileLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
             pane: 'pane_EsriTopoWorld_0',
             opacity: 1.0,
@@ -133,31 +138,30 @@ measureControl.addTo(map);
             minNativeZoom: 0,
             maxNativeZoom: 20
         });
-        layer_EsriTopoWorld_0;
         map.addLayer(layer_EsriTopoWorld_0);
+
         function pop_Banak_wautogik_14082023_1(feature, layer) {
-    layer.on({
-        mouseout: function(e) {
-            for (i in e.target._eventParents) {
-                e.target._eventParents[i].resetStyle(e.target);
-            }
-            if (typeof layer.closePopup == 'function') {
-                layer.closePopup();
-            } else {
-                layer.eachLayer(function(feature){
-                    feature.closePopup()
-                });
-            }
-        },
-        mouseover: highlightFeature,
-    });
+            layer.on({
+                mouseout: function (e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function (feature) {
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
 
-    // Include only the image tag in the pop-up content
-    var popupContent = (feature.properties['photo'] !== null ? '<img src="images/' + String(feature.properties['photo']).replace(/[\\\/:]/g, '_').trim() + '">' : '');
+            // Include only the image tag in the pop-up content
+            var popupContent = (feature.properties['photo'] !== null ? '<img src="images/' + String(feature.properties['photo']).replace(/[\\\/:]/g, '_').trim() + '">' : '');
 
-    layer.bindPopup(popupContent, { maxHeight: 250 });
-}
-
+            layer.bindPopup(popupContent, { maxHeight: 250 });
+        }
 
         function style_Banak_wautogik_14082023_1_0() {
             return {
@@ -169,16 +173,18 @@ measureControl.addTo(map);
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 2.0,
+               weight: 2.0,
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(253,236,0,1.0)',
                 interactive: true,
             }
         }
+
         map.createPane('pane_Banak_wautogik_14082023_1');
         map.getPane('pane_Banak_wautogik_14082023_1').style.zIndex = 401;
         map.getPane('pane_Banak_wautogik_14082023_1').style['mix-blend-mode'] = 'normal';
+
         var layer_Banak_wautogik_14082023_1 = new L.geoJson(json_Banak_wautogik_14082023_1, {
             attribution: '',
             interactive: true,
@@ -194,19 +200,22 @@ measureControl.addTo(map);
                 return L.shapeMarker(latlng, style_Banak_wautogik_14082023_1_0(feature));
             },
         });
+
         bounds_group.addLayer(layer_Banak_wautogik_14082023_1);
         map.addLayer(layer_Banak_wautogik_14082023_1);
-            var title = new L.Control();
-            title.onAdd = function (map) {
-                this._div = L.DomUtil.create('div', 'info');
-                this.update();
-                return this._div;
-            };
-            title.update = function () {
-                this._div.innerHTML = '<h2>Banak Wautogik Road Photo Update 14th August 2023</h2>';
-            };
-            title.addTo(map);
-           var abstract = new L.Control({ position: 'topleft' });
+
+        var title = new L.Control();
+        title.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info');
+            this.update();
+            return this._div;
+        };
+        title.update = function () {
+            this._div.innerHTML = '<h2>Banak Wautogik Road Photo Update 14th August 2023</h2>';
+        };
+        title.addTo(map);
+
+        var abstract = new L.Control({ position: 'topleft' });
 
 abstract.onAdd = function (map) {
     this._div = L.DomUtil.create('div', 'leaflet-control abstract');
@@ -214,8 +223,9 @@ abstract.onAdd = function (map) {
 
     // Wrap the abstract content in a scrollable div with adjusted width and height
     var abstractContent = document.createElement('div');
-    abstractContent.style.maxWidth = '150px'; // Set the desired maximum width
-    abstractContent.style.height = '150px'; // Set the desired height
+    abstractContent.style.maxWidth = '500px'; // Set the desired maximum width
+    abstractContent.style.maxHeight = '500px'; // Set the desired maximum height
+    abstractContent.style.overflowY = 'auto'; // Enable vertical scrolling
     abstractContent.innerHTML = 'The main part of the work of this contract is to rehabilitate existing roads, including associated crossing and<br />retaining structures with introduction of road furniture in required sections. The construction works will utilize<br />LABOUR-BASED EQUIPMENT SUPPORTED method, where most of the Works will be done using manual<br />labour, where technically feasible and economically viable, while other works such as compaction and long<br />distance transport of materials will be implemented using equipment.<br />Name of this contract: Lot#1 EU-STREIT PNG-2021-22-001/ Rehabilitation of Banak Wautogik Road<br />Employer of this contract: International Labour Organization (ILO) represented by the International Programme office, Wewak<br />District: Wewak, LLG:Boikin and Dagua<br />Road length: Contract length: 7.8 km Total length: 7.8 km<br />Works to commence on: 17 June 2022<br />Works to be completed on: 17 Oct 2023';
 
     this._div.appendChild(abstractContent); // Add the scrollable content
@@ -226,10 +236,13 @@ abstract.onAdd = function (map) {
 abstract.addTo(map);
 
 
-
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/Banak_wautogik_14082023_1.png" /> Banak_wautogik_14082023': layer_Banak_wautogik_14082023_1,"Esri Topo World": layer_EsriTopoWorld_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps, {
+            '<img src="legend/Banak_wautogik_14082023_1.png" /> Banak_wautogik_14082023': layer_Banak_wautogik_14082023_1,
+            "Esri Topo World": layer_EsriTopoWorld_0,
+        }, { collapsed: false }).addTo(map);
+
         setBounds();
-        </script>
-    </body>
+    </script>
+</body>
 </html>
