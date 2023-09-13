@@ -25,17 +25,18 @@
         display: none; /* Hide the title on mobile screens */
     }
     
-    /* Adjust the styles for the abstract on mobile screens */
-    .leaflet-control.abstract {
-        max-width: 100%; /* Set the maximum width to the screen width */
-        height: auto; /* Allow the height to adjust to content */
-        overflow: auto; /* Enable scrolling for overflow content */
-    }
-    
-    /* Optional: Add padding for better visual appearance */
-    .leaflet-control.abstract {
-        padding: 10px;
-    }
+   /* Adjust the styles for the abstract on mobile screens */
+.leaflet-control.abstract {
+    max-width: 100%; /* Set the maximum width to the screen width */
+    max-height: 350px; /* Set a maximum height for the abstract */
+    overflow-y: auto; /* Enable vertical scrolling for overflow content */
+}
+
+/* Optional: Add padding for better visual appearance */
+.leaflet-control.abstract {
+    padding: 10px;
+}
+
 }
         html, body, #map {
             width: 100%;
