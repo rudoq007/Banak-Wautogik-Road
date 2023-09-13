@@ -1,4 +1,5 @@
 
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -22,7 +23,7 @@
             width: 100%;
             height: 100%;
             padding: 0;
-            margin: 300;
+            margin: 0;
         }
         </style>
         <title>Banak Wautogik Road Photo Update 14th August 2023</title>
@@ -49,11 +50,11 @@
 
             if (e.target.feature.geometry.type === 'LineString') {
               highlightLayer.setStyle({
-                color: '#90EE90',
+                color: '#ADD8E6',
               });
             } else {
               highlightLayer.setStyle({
-                fillColor: '#90EE90',
+                fillColor: '#ADD8E6',
                 fillOpacity: 1
               });
             }
@@ -62,17 +63,18 @@
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
         })
-       
+        
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
-        var measureControl = new L.Control.Measure({
+       var measureControl = new L.Control.Measure({
     position: 'topleft',
     primaryLengthUnit: 'meters',
     secondaryLengthUnit: 'kilometers',
     primaryAreaUnit: 'sqmeters',
     secondaryAreaUnit: 'hectares',
-    showDistances: true, 
-    showBearings: true,
-    color: 'blue'  
+    showDistances: true,  // Remove the quotes
+    showBearings: true,   // Remove the quotes
+    color: '#ADD8E6'
 });
 measureControl.addTo(map);
 
@@ -129,8 +131,8 @@ measureControl.addTo(map);
         function style_Banak_wautogik_14082023_1_0() {
             return {
                 pane: 'pane_Banak_wautogik_14082023_1',
-                shape: 'diamond',
-                radius: 4.4,
+                shape: 'circle',
+                radius: 5,
                 opacity: 1,
                 color: 'rgba(128,17,25,1.0)',
                 dashArray: '',
@@ -175,17 +177,24 @@ measureControl.addTo(map);
             title.addTo(map);
            var abstract = new L.Control({'position':'topleft'});
 abstract.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'leaflet-control abstract abstractUncollapsed');
+    this._div = L.DomUtil.create('div', 'leaflet-control abstract');
     this._div.id = 'abstract';
-
-    // Set the content you want to display initially
-    this._div.innerHTML =  'The main part of the work of this contract is to rehabilitate existing roads, including associated crossing and<br />retaining structures with introduction of road furniture in required sections. The construction works will utilize<br />LABOUR-BASED EQUIPMENT SUPPORTED method, where most of the Works will be done using manual<br />labour, where technically feasible and economically viable, while other works such as compaction and long<br />distance transport of materials will be implemented using equipment.<br />Name of this contract: Lot#1 EU-STREIT PNG-2021-22-001/ Rehabilitation of Banak Wautogik Road<br />Employer of this contract: International Labour Organization (ILO) represented by the International Programme office, Wewak<br />District: Wewak, LLG:Boikin and Dagua<br />Road length: Contract length: 7.8 km Total length: 7.8 km<br />Works to commence on: 17 June 2022<br />Works to be completed on: 17 Oct 2023'; // Content of the "abstract"
-}; // Replace with your content
-
+    this._div.setAttribute("onmouseenter", "abstract.show()");
+    
+    // Remove the line that hides the element initially
     return this._div;
 };
+abstract.hide = function () {
+    this._div.classList.remove("abstractUncollapsed");
+    this._div.classList.add("abstract");
+    this._div.innerHTML = 'i';
+};
+abstract.show = function () {
+    this._div.classList.remove("abstract");
+    this._div.classList.add("abstractUncollapsed");
+    this._div.innerHTML = 'The main part of the work of this contract is to rehabilitate existing roads, including associated crossing and<br />retaining structures with introduction of road furniture in required sections. The construction works will utilize<br />LABOUR-BASED EQUIPMENT SUPPORTED method, where most of the Works will be done using manual<br />labour, where technically feasible and economically viable, while other works such as compaction and long<br />distance transport of materials will be implemented using equipment.<br />Name of this contract: Lot#1 EU-STREIT PNG-2021-22-001/ Rehabilitation of Banak Wautogik Road<br />Employer of this contract: International Labour Organization (ILO) represented by the International Programme office, Wewak<br />District: Wewak, LLG:Boikin and Dagua<br />Road length: Contract length: 7.8 km Total length: 7.8 km<br />Works to commence on: 17 June 2022<br />Works to be completed on: 17 Oct 2023'; // Content of the "abstract"
+};
 abstract.addTo(map);
-
 
 
         var baseMaps = {};
