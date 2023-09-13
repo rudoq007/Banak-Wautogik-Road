@@ -92,10 +92,10 @@
         }
 
         var map = L.map('map', {
-            zoomControl: true,
+            zoomControl: false, // Disable the default zoom control
             maxZoom: 28,
             minZoom: 1
-        });
+        }).addControl(L.control.zoom({ position: 'topleft' })); // Add a custom zoom control to the topleft position
 
         var autolinker = new Autolinker({ truncate: { length: 30, location: 'smart' } });
         L.control.locate({ locateOptions: { maxZoom: 19 } }).addTo(map);
@@ -163,7 +163,7 @@
             layer.bindPopup(popupContent, { maxHeight: 250 });
         }
 
-        function style_Banak_wautogik_14082023_1_0() {
+                function style_Banak_wautogik_14082023_1_0() {
             return {
                 pane: 'pane_Banak_wautogik_14082023_1',
                 shape: 'circle',
@@ -173,7 +173,7 @@
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-               weight: 2.0,
+                weight: 2.0,
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(253,236,0,1.0)',
@@ -217,24 +217,23 @@
 
         var abstract = new L.Control({ position: 'topleft' });
 
-abstract.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'leaflet-control abstract');
-    this._div.id = 'abstract';
+        abstract.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'leaflet-control abstract');
+            this._div.id = 'abstract';
 
-    // Wrap the abstract content in a scrollable div with adjusted width and height
-    var abstractContent = document.createElement('div');
-    abstractContent.style.maxWidth = '500px'; // Set the desired maximum width
-    abstractContent.style.maxHeight = '500px'; // Set the desired maximum height
-    abstractContent.style.overflowY = 'auto'; // Enable vertical scrolling
-    abstractContent.innerHTML = 'The main part of the work of this contract is to rehabilitate existing roads, including associated crossing and<br />retaining structures with introduction of road furniture in required sections. The construction works will utilize<br />LABOUR-BASED EQUIPMENT SUPPORTED method, where most of the Works will be done using manual<br />labour, where technically feasible and economically viable, while other works such as compaction and long<br />distance transport of materials will be implemented using equipment.<br />Name of this contract: Lot#1 EU-STREIT PNG-2021-22-001/ Rehabilitation of Banak Wautogik Road<br />Employer of this contract: International Labour Organization (ILO) represented by the International Programme office, Wewak<br />District: Wewak, LLG:Boikin and Dagua<br />Road length: Contract length: 7.8 km Total length: 7.8 km<br />Works to commence on: 17 June 2022<br />Works to be completed on: 17 Oct 2023';
+            // Wrap the abstract content in a scrollable div with adjusted width and height
+            var abstractContent = document.createElement('div');
+            abstractContent.style.maxWidth = '500px'; // Set the desired maximum width
+            abstractContent.style.maxHeight = '500px'; // Set the desired maximum height
+            abstractContent.style.overflowY = 'auto'; // Enable vertical scrolling
+            abstractContent.innerHTML = 'The main part of the work of this contract is to rehabilitate existing roads, including associated crossing and<br />retaining structures with introduction of road furniture in required sections. The construction works will utilize<br />LABOUR-BASED EQUIPMENT SUPPORTED method, where most of the Works will be done using manual<br />labour, where technically feasible and economically viable, while other works such as compaction and long<br />distance transport of materials will be implemented using equipment.<br />Name of this contract: Lot#1 EU-STREIT PNG-2021-22-001/ Rehabilitation of Banak Wautogik Road<br />Employer of this contract: International Labour Organization (ILO) represented by the International Programme office, Wewak<br />District: Wewak, LLG:Boikin and Dagua<br />Road length: Contract length: 7.8 km Total length: 7.8 km<br />Works to commence on: 17 June 2022<br />Works to be completed on: 17 Oct 2023';
 
-    this._div.appendChild(abstractContent); // Add the scrollable content
+            this._div.appendChild(abstractContent); // Add the scrollable content
 
-    return this._div;
-};
+            return this._div;
+        };
 
-abstract.addTo(map);
-
+        abstract.addTo(map);
 
         var baseMaps = {};
         L.control.layers(baseMaps, {
